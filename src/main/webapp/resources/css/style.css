@@ -1,0 +1,123 @@
+#content {
+    width: 756px;
+    margin-top: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Calibri", sans-serif;
+    font-size: large;
+}
+#content div {
+    margin-bottom: 16px;
+}
+.inputBlock {
+    font-size: larger;
+    font-style: italic;
+}
+.submitButton {
+    font-family: "Calibri Light", sans-serif;
+    width: 479px;
+    height: 45px;
+    padding-bottom: 3px;
+    font-size: 16pt;
+    margin-top: 84px;
+    cursor: pointer;
+}
+.textField {
+    height: 24px;
+    width: 332px;
+    font-size: 16pt;
+    font-style: italic;
+    font-family: 'Calibri', sans-serif;
+    margin-top: 3px;
+}
+.textField:invalid {
+    color: red;
+}
+.history {
+    width: 758px;
+    border-collapse: collapse;
+    font-size: 15pt;
+    margin: 22px auto 18px;
+}
+.history td {
+    border: 1px solid rgb(118, 118, 118);
+    padding-left: 6px;
+    padding-right: 6px;
+}
+.history th {
+    border: 1px solid rgb(118, 118, 118);
+    padding-left: 6px;
+    padding-right: 6px;
+}
+#flushLeft {
+    width: 480px;
+    float: left;
+}
+#flushRight {
+    margin-left: 492px;
+}
+.error {
+    background-color: #ffe3e3;
+    width: 756px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-size: 16pt;
+    font-weight: bold;
+    border-radius: 2px;
+    border: 1px solid darkred;
+    text-align: center;
+    color: darkred;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#scrollUpButton {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-family: "Calibri Light", sans-serif;
+    font-weight: bold;
+    font-size: 15pt;
+    color: white;
+    border: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #4a98ff;
+    line-height: 36px;
+    position: sticky;
+    bottom: 15px;
+    margin-left: -49px;
+    margin-top: -50px;
+}
+#scrollUpButton:hover {
+    box-shadow: 0 1px 10px 2px rgba(17, 77, 164, 0.6);
+}
+#scrollUpButton:active {
+    background-color: #114da4;
+    cursor: none;
+}
+#scrollUpButton[hidden] {
+    display: none;
+}
+.xButton {
+    margin-left: 6px;
+    height: 28px;
+    width: 28px;
+    cursor: pointer;
+}
+.rSelect {
+    margin-left: 6px;
+    height: 28px;
+    width: 339px;
+}
+#canvas {
+    margin-top: 3px;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+label {
+    font-weight: bold;
+    display: inline-block;
+    width: 139px;
+}
