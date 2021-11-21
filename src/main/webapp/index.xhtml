@@ -21,11 +21,11 @@
             <h:form id="pointCheckForm">
                 <div class="inputBlock">
                     <label>Изменение X:</label>
-                    <h:inputText id="xField" styleClass="textField" value="#{pointBean.x}" onkeyup="checkX()"/>
+                    <h:inputText id="xField" styleClass="textField" value="#{resultBean.x}" onkeyup="checkX()"/>
                 </div>
                 <div class="inputBlock">
                     <label>Изменение Y:</label>
-                    <h:inputText id="yField" styleClass="textField" value="#{pointBean.y}" onkeyup="checkY()"/>
+                    <h:inputText id="yField" styleClass="textField" value="#{resultBean.y}" onkeyup="checkY()"/>
                 </div>
                 <div class="inputBlock">
                     <label>Изменение R:</label>
@@ -35,28 +35,18 @@
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 2.5)" value = "#{checkboxBean.options[3]}"/>2.5
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 3)" value = "#{checkboxBean.options[4]}"/>3
                 </div>
-                <h:commandButton styleClass="submitButton" value="Отправить"/>
+                <h:commandButton styleClass="submitButton" value="Отправить" action="#{resultBean.add()}"/>
             </h:form>
         </div>
         <div id="flushRight">
             <canvas width="264" height="264" id="canvas"/>
         </div>
-        <!--
-<%
-        if (hb.getHistory().isEmpty()) {
-        out.println("<div class='error'>История запросов пуста, поэтому таблица не загружена.</div>");
-        } else {
-        out.println("<table class='history'>");
-out.println("<thead><tr><th>Значение X</th><th>Значение Y</th><th>Значение R</th><th>Попадание</th><th>Дата и время</th></tr></thead>");
-out.println("<tbody>");
-for (Point p : hb.getHistory()) {
-out.println("<tr><td>" + p.getX() + "</td><td>" + p.getY() + "</td><td>" + p.getR() + "</td><td>" + (p.isInArea() ? "Да" : "Нет") + "</td><td>" + (new SimpleDateFormat("dd.MM.yy HH:mm:ss")).format(p.getDate()) + "</td></tr>");
-}
-out.println("</tbody>");
-out.println("</table>");
-        }
-        %>
-        -->
+        <h:outputText value="#{resultBean.displayError()}" escape="false"/>
+        <h:outputText value="#{resultBean.displayTableStart()}" escape="false"/>
+        <ui:repeat value="#{resultBean.history}" var="entry">
+            <h:outputText value="#{entry}" escape="false"/>
+        </ui:repeat>
+        <h:outputText value="#{resultBean.displayTableEnd()}" escape="false"/>
     </div>
 </h:body>
 <h:outputScript library="js" name="canvas.js"/>

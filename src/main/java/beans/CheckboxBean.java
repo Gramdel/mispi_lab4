@@ -1,11 +1,11 @@
 package beans;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ApplicationScoped;
 import java.io.Serializable;
 
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class CheckboxBean implements Serializable {
     private boolean[] options = new boolean[5];
 
