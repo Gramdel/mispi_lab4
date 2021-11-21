@@ -18,8 +18,9 @@ function checkY(){
     }
 }
 
-function changeCheckBoxBehavior(element)
+function changeCheckBoxBehavior(element, value)
 {
+    drawArea(value);
     let checkboxes = document.querySelectorAll("input[type=checkbox]");
     for (let i = 0; i < checkboxes.length; i++)
     {

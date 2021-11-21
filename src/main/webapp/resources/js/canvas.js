@@ -28,16 +28,16 @@ function drawArea(r) {
     context.lineTo(264, 132.5);
     context.stroke();
 
-    context.font = "11pt Calibri";
+    context.font = "11pt Calibri"; // подписи осей
     context.fillText("Y", 120, 11);
     context.fillText("X", 255, 148);
 
     context.fillStyle = "#4a98ff";
-    context.fillRect(132.5-r*18-1.5, 133, r*18+1, r*18*2+1); // прямоугольник
+    context.fillRect(132.5-r*18*2-1.5, 133, r*18*2+1, r*18*2+1); // прямоугольник
 
     context.beginPath(); // треугольник
     context.moveTo(133, 132);
-    context.lineTo(133+r*18+1.5, 132);
+    context.lineTo(133+r*18*2+1.5, 132);
     context.lineTo(133, 132-r*18);
     context.lineTo(133, 132);
     context.fill();
@@ -64,14 +64,14 @@ function drawArea(r) {
     context.fillStyle = "black";
 
     context.fillText("R", 120, 132.5-r*18*2+2); // R по y
-    if (r !== "1.0") {
+    if (r !== 1) {
         context.fillText("0.5R", 120-19, 132.5-r*18+2);
         context.fillText("0.5R", 120-19, 132.5+r*18+4);
     }
     context.fillText("R", 120, 132.5+r*18*2+4);
 
     context.fillText("R", 132.5-r*18*2-5, 148); // R по x
-    if (r !== "1.0") {
+    if (r !== 1) {
         context.fillText("0.5R", 132.5 - r * 18 - 10, 148);
         context.fillText("0.5R", 132.5 + r * 18 - 8, 148);
     }

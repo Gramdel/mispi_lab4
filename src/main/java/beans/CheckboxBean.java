@@ -10,10 +10,10 @@ public class CheckboxBean implements Serializable {
     private boolean[] options = new boolean[5];
 
     public CheckboxBean() {
-        options[0] = true;
-        for (int i = 1; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             options[i] = false;
         }
+        options[4] = true;
     }
 
     public boolean[] getOptions() {

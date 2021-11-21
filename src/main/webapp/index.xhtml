@@ -29,11 +29,11 @@
                 </div>
                 <div class="inputBlock">
                     <label>Изменение R:</label>
-                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[0]}" style="margin-left: 1px;"/>1
-                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[1]}"/>1.5
-                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[2]}"/>2
-                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[3]}"/>2.5
-                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[4]}"/>3
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 1)" value = "#{checkboxBean.options[0]}" style="margin-left: 1px;"/>1
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 1.5)" value = "#{checkboxBean.options[1]}"/>1.5
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 2)" value = "#{checkboxBean.options[2]}"/>2
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 2.5)" value = "#{checkboxBean.options[3]}"/>2.5
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 3)" value = "#{checkboxBean.options[4]}"/>3
                 </div>
                 <h:commandButton styleClass="submitButton" value="Отправить"/>
             </h:form>
@@ -57,7 +57,7 @@ out.println("</table>");
         }
         %>
         -->
-        </div>
+    </div>
 </h:body>
 <h:outputScript library="js" name="canvas.js"/>
 <h:outputScript library="js" name="form.js"/>
