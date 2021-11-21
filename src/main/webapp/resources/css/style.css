@@ -9,6 +9,33 @@
 #content div {
     margin-bottom: 16px;
 }
+@font-face {
+    font-family: fantasy;
+    src: url(/resources/fonts/impact.ttf) format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+#mainHeading {
+    width: 757px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #114da4;
+    font-family: fantasy;
+    font-size: 23pt;
+}
+#mainHeading::selection {
+    color: white;
+    background-color: #114da4;
+}
+#mainHeading span {
+    color: #4a98ff;
+    font-size: 23pt;
+}
+#mainHeading span::selection {
+    color: white;
+    background-color: #4a98ff;
+}
 .inputBlock {
     font-size: larger;
     font-style: italic;
@@ -120,4 +147,8 @@ label {
     font-weight: bold;
     display: inline-block;
     width: 139px;
+}
+input[type=checkbox] {
+    margin-left: 38px;
+    transform: scale(1.2);
 }

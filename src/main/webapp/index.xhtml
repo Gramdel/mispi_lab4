@@ -9,35 +9,6 @@
     <meta charset="utf-8"/>
     <title>lab3</title>
     <h:outputStylesheet library="css" name="style.css"/>
-    <style>
-        @font-face {
-            font-family: fantasy;
-            src: url(resources/fonts/impact.ttf) format("truetype");
-            font-style: normal;
-            font-weight: normal;
-        }
-        #mainHeading {
-            width: 756px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            color: #114da4;
-            font-family: fantasy;
-            font-size: 23pt;
-        }
-        #mainHeading::selection {
-            color: white;
-            background-color: #114da4;
-        }
-        #mainHeading span {
-            color: #4a98ff;
-            font-size: 23pt;
-        }
-        #mainHeading span::selection {
-            color: white;
-            background-color: #4a98ff;
-        }
-    </style>
 </h:head>
 <h:body>
     <header>
@@ -50,19 +21,19 @@
             <h:form id="pointCheckForm">
                 <div class="inputBlock">
                     <label>Изменение X:</label>
-                    <h:inputText styleClass="textField" style="#{component.valid ? 'color: black;' : 'color: red;'}" value="#{pointBean.x}" required="true" onchange="">
-                        <f:validateDoubleRange minimum="-5" maximum="3" />
-                    </h:inputText>
+                    <h:inputText id="xField" styleClass="textField" value="#{pointBean.x}" onkeyup="checkX()"/>
                 </div>
                 <div class="inputBlock">
                     <label>Изменение Y:</label>
-                    <h:inputText styleClass="textField" style="#{component.valid ? 'color: black;' : 'color: red;'}" value="#{pointBean.y}" required="true">
-                        <f:validateDoubleRange minimum="-3" maximum="5" />
-                    </h:inputText>
+                    <h:inputText id="yField" styleClass="textField" value="#{pointBean.y}" onkeyup="checkY()"/>
                 </div>
                 <div class="inputBlock">
                     <label>Изменение R:</label>
-
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[0]}" style="margin-left: 1px;"/>1
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[1]}"/>1.5
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[2]}"/>2
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[3]}"/>2.5
+                    <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this)" value = "#{checkboxBean.options[4]}"/>3
                 </div>
                 <h:commandButton styleClass="submitButton" value="Отправить"/>
             </h:form>
@@ -89,6 +60,36 @@ out.println("</table>");
         </div>
 </h:body>
 <script>
+    let xField = document.getElementById("pointCheckForm:xField");
+    xField.required = true;
+    function checkX(){
+        if (xField.value &lt;= 3 &amp;&amp; xField.value >= -5) {
+            xField.setCustomValidity("");
+        } else {
+            xField.setCustomValidity("Требуется число от -5 до 3!")
+        }
+    }
+
+    let yField = document.getElementById("pointCheckForm:yField");
+    yField.required = true;
+    function checkY(){
+        if (yField.value &lt;= 5 &amp;&amp; yField.value >= -3) {
+            yField.setCustomValidity("");
+        } else {
+            yField.setCustomValidity("Требуется число от -3 до 5!")
+        }
+    }
+
+    function changeCheckBoxBehavior(element)
+    {
+        let checkboxes = document.querySelectorAll("input[type=checkbox]");
+        for (let i = 0; i &lt; checkboxes.length; i++)
+        {
+            checkboxes[i].checked = false;
+        }
+        element.checked = true;
+    }
+
     let canvas = document.getElementById('canvas');
     let context = canvas.getContext('2d');
     canvas.addEventListener('mouseup', function (e) {
