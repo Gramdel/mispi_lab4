@@ -2,9 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
     <meta charset="utf-8"/>
     <title>lab3</title>
@@ -35,7 +33,7 @@
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 2.5)" value = "#{checkboxBean.options[3]}"/>2.5
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 3)" value = "#{checkboxBean.options[4]}"/>3
                 </div>
-                <h:commandButton styleClass="submitButton" value="Отправить" action="#{resultBean.add()}"/>
+                <h:commandButton id="commandButton" styleClass="submitButton" value="Отправить" action="#{resultBean.add()}"/>
             </h:form>
         </div>
         <div id="flushRight">
@@ -47,8 +45,15 @@
             <h:outputText value="#{entry}" escape="false"/>
         </ui:repeat>
         <h:outputText value="#{resultBean.displayTableEnd()}" escape="false"/>
+        <a href="#mainHeading" id="scrollUpButton" title="Наверх" hidden="">↑</a>
     </div>
 </h:body>
+<script>
+    window.addEventListener('scroll', function() {
+        document.getElementById('scrollUpButton').hidden = scrollY &lt; 30;
+    });
+</script>
+<h:outputText value="#{resultBean.displayScript()}" escape="false"/>
 <h:outputScript library="js" name="canvas.js"/>
 <h:outputScript library="js" name="form.js"/>
 </html>

@@ -2,9 +2,9 @@ let canvas = document.getElementById('canvas');
 canvas.addEventListener('mouseup', function (e) {
     let x = e.pageX - e.target.offsetLeft;
     let y = e.pageY - e.target.offsetTop;
-    document.getElementById("hiddenField").value = ((x - 133)/36+0.01).toFixed(1);
-    document.getElementsByName("coordinateY")[0].value = ((y - 133)/-36+0.005).toFixed(1);
-    document.getElementById("pointCheckForm").submit();
+    document.getElementById("pointCheckForm:xField").value = ((x - 133)/36+0.01).toFixed(1);
+    document.getElementById("pointCheckForm:yField").value = ((y - 133)/-36+0.005).toFixed(1);
+    document.getElementById("pointCheckForm:commandButton").click();
 });
 
 let context = canvas.getContext('2d');
@@ -77,7 +77,7 @@ function drawArea(r) {
     }
     context.fillText("R", 132.5 + r * 18 * 2 - 3, 148);
 
-    //drawPointsFromHistory(); // заполняем точки из истории
+    drawPointsFromHistory(); // заполняем точки из истории
 }
 
 let checkboxes = document.querySelectorAll("input[type=checkbox]");

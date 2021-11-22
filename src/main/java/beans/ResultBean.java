@@ -17,6 +17,7 @@ import java.util.List;
 public class ResultBean {
     private double x;
     private double y;
+    private double r;
     @ManagedProperty(value = "#{checkboxBean.options}")
     private boolean[] options = new boolean[5];
     private final DBUnit db = new DBUnit();
@@ -30,12 +31,20 @@ public class ResultBean {
         return y;
     }
 
+    public double getR() {
+        return r;
+    }
+
     public void setX(double x) {
         this.x = x;
     }
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void setR(double r) {
+        this.r = r;
     }
 
     public void setOptions(boolean[] options) {
@@ -61,10 +70,11 @@ public class ResultBean {
     public void add() {
         for (double i = 0; i < 5; i++) {
             if (options[(int) i]) {
+                r = i / 2 + 1;
                 Point point = new Point();
                 point.setX(x);
                 point.setY(y);
-                point.setR(i / 2 + 1);
+                point.setR(r);
                 point.setInArea(check());
                 point.setDate(new Date());
                 results.add(point);
@@ -79,7 +89,7 @@ public class ResultBean {
     }
 
     private boolean check() {
-        return true;
+        return pointIsInCircle() || pointIsInRectangle() || pointIsInTriangle();
     }
 
     public String displayError() {
@@ -92,5 +102,30 @@ public class ResultBean {
 
     public String displayTableEnd() {
         return !results.isEmpty() ? "</tbody></table>" : "";
+    }
+
+    public String displayScript() {
+        StringBuilder s = new StringBuilder();
+        s.append("<script>\n");
+        s.append("function drawPointsFromHistory(){\n");
+        s.append("let canvas = document.getElementById('canvas');\n");
+        s.append("let context = canvas.getContext('2d');\n");
+        s.append("context.fillStyle = \"#FF0000\";\n");
+        getResults().forEach(result -> s.append("context.fillRect(\"").append(result.getX()*36+133-1.5).append("\", \"").append(result.getY()*-36+133-2).append("\", 2, 2);\n"));
+        s.append("}\n");
+        s.append("</script>\n");
+        return s.toString();
+    }
+
+    private boolean pointIsInTriangle() {
+        return (y <= r / 2 - x / 2) && (y >= 0) && (x >= 0);
+    }
+
+    private boolean pointIsInCircle() {
+        return (x * x + y * y <= r * r / 4) && (y >= 0) && (x <= 0);
+    }
+
+    private boolean pointIsInRectangle() {
+        return (y >= -r) && (y <= 0) && (x >= -r) && (x <= 0);
     }
 }
