@@ -1,12 +1,16 @@
 package beans;
 
+import db.DBUnit;
 import other.Point;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @ManagedBean
 @ApplicationScoped
@@ -15,7 +19,8 @@ public class ResultBean {
     private double y;
     @ManagedProperty(value = "#{checkboxBean.options}")
     private boolean[] options = new boolean[5];
-    private final ArrayList<Point> history = new ArrayList<>();
+    private final DBUnit db = new DBUnit();
+    private List<Point> results = new ArrayList<>();
 
     public double getX() {
         return x;
@@ -37,14 +42,37 @@ public class ResultBean {
         this.options = options;
     }
 
-    public ArrayList<Point> getHistory() {
-        return history;
+    public List<Point> getResults() {
+        return results;
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
+            List<Point> results = db.getResults();
+            if (results != null) {
+                this.results = results;
+            }
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
     public void add() {
         for (double i = 0; i < 5; i++) {
             if (options[(int) i]) {
-                history.add(new Point(x, y, i/2+1, check(), new Date()));
+                Point point = new Point();
+                point.setX(x);
+                point.setY(y);
+                point.setR(i / 2 + 1);
+                point.setInArea(check());
+                point.setDate(new Date());
+                results.add(point);
+                try {
+                    db.sendResult(point);
+                } catch (PersistenceException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
@@ -55,20 +83,14 @@ public class ResultBean {
     }
 
     public String displayError() {
-        return history.isEmpty() ? "<div class='error'>История запросов пуста, поэтому таблица не загружена.</div>" : "";
+        return results.isEmpty() ? "<div class='error'>История запросов пуста, поэтому таблица не загружена.</div>" : "";
     }
 
     public String displayTableStart() {
-        return !history.isEmpty() ? "<table class='history'><thead><tr><th>Значение X</th><th>Значение Y</th><th>Значение R</th><th>Попадание</th><th>Дата и время</th></tr></thead><tbody>" : "";
+        return !results.isEmpty() ? "<table class='history'><thead><tr><th>Значение X</th><th>Значение Y</th><th>Значение R</th><th>Попадание</th><th>Дата и время</th></tr></thead><tbody>" : "";
     }
 
     public String displayTableEnd() {
-        int c = 0;
-        for (Point pb : history) {
-            System.out.println(c+":");
-            System.out.println(pb);
-            c++;
-        }
-        return !history.isEmpty() ? "</tbody></table>" : "";
+        return !results.isEmpty() ? "</tbody></table>" : "";
     }
 }

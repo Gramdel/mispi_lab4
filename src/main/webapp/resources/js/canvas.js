@@ -1,5 +1,4 @@
 let canvas = document.getElementById('canvas');
-let context = canvas.getContext('2d');
 canvas.addEventListener('mouseup', function (e) {
     let x = e.pageX - e.target.offsetLeft;
     let y = e.pageY - e.target.offsetTop;
@@ -8,6 +7,7 @@ canvas.addEventListener('mouseup', function (e) {
     document.getElementById("pointCheckForm").submit();
 });
 
+let context = canvas.getContext('2d');
 function drawArea(r) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "black";
@@ -79,4 +79,12 @@ function drawArea(r) {
 
     //drawPointsFromHistory(); // заполняем точки из истории
 }
-drawArea(3);
+
+let checkboxes = document.querySelectorAll("input[type=checkbox]");
+for (let i = 0; i < checkboxes.length; i++)
+{
+    if(checkboxes[i].checked) {
+        drawArea(i/2+1);
+        break;
+    }
+}

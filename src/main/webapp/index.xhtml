@@ -43,7 +43,7 @@
         </div>
         <h:outputText value="#{resultBean.displayError()}" escape="false"/>
         <h:outputText value="#{resultBean.displayTableStart()}" escape="false"/>
-        <ui:repeat value="#{resultBean.history}" var="entry">
+        <ui:repeat value="#{resultBean.results}" var="entry">
             <h:outputText value="#{entry}" escape="false"/>
         </ui:repeat>
         <h:outputText value="#{resultBean.displayTableEnd()}" escape="false"/>
