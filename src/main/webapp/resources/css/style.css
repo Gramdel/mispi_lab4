@@ -46,7 +46,7 @@
     height: 45px;
     padding-bottom: 3px;
     font-size: 16pt;
-    margin-top: 84px;
+    margin-top: 42px;
     cursor: pointer;
 }
 .textField {
@@ -151,4 +151,26 @@ label {
 input[type=checkbox] {
     margin-left: 38px;
     transform: scale(1.2);
+}
+.clock {
+    width: 400px;
+    margin-left: 178px;
+    margin-bottom: 0;
+}
+#date {
+    font-family: "Calibri Light", sans-serif;
+    font-size: 21pt;
+    position: relative;
+    margin-top: -165px;
+}
+.welcome {
+    position: relative;
+    margin-top: 36px;
+    display: block;
+    text-decoration: none;
+    color: #e7e7e7;
+    letter-spacing: 14.3px;
+}
+.welcome:hover {
+    color: darkgrey;
 }

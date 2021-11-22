@@ -1,12 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>First JSF Application</title>
-</head>
-
-<body>
-WTF
-<a href="index.xhtml">index</a>
-</body>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="utf-8"/>
+    <title>lab3</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<h:body>
+    <header>
+        <div id="mainHeading">
+            <span>Асташин Сергей Сергеевич</span> Группа: P3230 Вариант: 30903
+        </div>
+    </header>
+    <div id="content" style="text-align: center;">
+        <div class="clock" style="margin-bottom: 0;">
+            <p:clock displayMode="analog"/>
+        </div>
+        <h:button value="Переход на главную страницу" outcome="index" styleClass="submitButton" style="margin-top:0;margin-left:auto;margin-right:auto;"/>
+        <br/>
+        <div id="date"></div>
+    </div>
+</h:body>
+<script>
+    document.getElementById("date").innerHTML = new Date().toLocaleDateString();
+    setInterval(function() {
+        document.getElementById("date").innerHTML = new Date().toLocaleDateString();
+    }, 9000);
+</script>
 </html>

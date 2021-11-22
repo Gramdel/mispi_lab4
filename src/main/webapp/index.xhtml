@@ -33,6 +33,7 @@
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 2.5)" value = "#{checkboxBean.options[3]}"/>2.5
                     <h:selectBooleanCheckbox onclick="changeCheckBoxBehavior(this, 3)" value = "#{checkboxBean.options[4]}"/>3
                 </div>
+                <h:link outcome="start" styleClass="welcome" value="&lt;&lt;&lt;&lt;&lt;&lt;&lt;Обратно&lt;&lt;&lt;&lt;&lt;&lt;&lt;"/>
                 <h:commandButton id="commandButton" styleClass="submitButton" value="Отправить" action="#{resultBean.add()}"/>
             </h:form>
         </div>
