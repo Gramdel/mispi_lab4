@@ -18,4 +18,10 @@ public class DBUnit {
         em.persist(point);
         em.getTransaction().commit();
     }
+
+    public void removeResult(Point point) throws PersistenceException {
+        em.getTransaction().begin();
+        em.remove(point);
+        em.getTransaction().commit();
+    }
 }

@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,6 +53,12 @@ public class ResultBean {
     }
 
     public List<Point> getResults() {
+        List<Point> results = new ArrayList<>();
+        for (Point result : this.results) {
+            if (result.getSessionId().equals(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false))) {
+                results.add(result);
+            }
+        }
         return results;
     }
 
@@ -77,6 +84,7 @@ public class ResultBean {
                 point.setR(r);
                 point.setInArea(check());
                 point.setDate(new Date());
+                point.setSessionId(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false));
                 results.add(point);
                 try {
                     db.sendResult(point);
@@ -93,15 +101,15 @@ public class ResultBean {
     }
 
     public String displayError() {
-        return results.isEmpty() ? "<div class='error'>История запросов пуста, поэтому таблица не загружена.</div>" : "";
+        return getResults().isEmpty() ? "<div class='error'>История запросов пуста, поэтому таблица не загружена.</div>" : "";
     }
 
     public String displayTableStart() {
-        return !results.isEmpty() ? "<table class='history'><thead><tr><th>Значение X</th><th>Значение Y</th><th>Значение R</th><th>Попадание</th><th>Дата и время</th></tr></thead><tbody>" : "";
+        return !getResults().isEmpty() ? "<table class='history'><thead><tr><th>Значение X</th><th>Значение Y</th><th>Значение R</th><th>Попадание</th><th>Дата и время</th></tr></thead><tbody>" : "";
     }
 
     public String displayTableEnd() {
-        return !results.isEmpty() ? "</tbody></table>" : "";
+        return !getResults().isEmpty() ? "</tbody></table>" : "";
     }
 
     public String displayScript() {

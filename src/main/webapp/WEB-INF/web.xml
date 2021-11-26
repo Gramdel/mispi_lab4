@@ -7,7 +7,7 @@
 
   <!-- Welcome page -->
   <welcome-file-list>
-    <welcome-file>faces/start.xhtml</welcome-file>
+    <welcome-file>start.xhtml</welcome-file>
   </welcome-file-list>
 
   <!-- JSF mapping -->
@@ -34,4 +34,22 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+
+  <!-- Filter -->
+  <filter>
+    <filter-name>Session Filter</filter-name>
+    <filter-class>filters.SessionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Session Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+
+  <!-- Listeners -->
+  <listener>
+    <listener-class>listeners.SessionListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
+  </listener>
 </web-app>

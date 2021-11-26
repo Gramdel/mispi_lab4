@@ -27,6 +27,9 @@ public class Point {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "session_id")
+    private String sessionId;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -73,6 +76,14 @@ public class Point {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getSessionId() {
+        return sessionId;
     }
 
     @Override
