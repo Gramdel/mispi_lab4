@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class ResultBean extends NotificationBroadcasterSupport implements Serializable, ResultBeanMXBean {
     private double x;
     private double y;
-    private double r;
+    private double r = 3;
     @ManagedProperty(value = "#{checkboxBean.options}")
     private boolean[] options = new boolean[5];
     private final DBUnit db = new DBUnit();
@@ -149,7 +149,7 @@ public class ResultBean extends NotificationBroadcasterSupport implements Serial
     public long getAllPointsCount() {
         List<Point> results = new ArrayList<>();
         try {
-            results = db.getResults().stream().filter(x -> x.getSessionId().equals(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false))).collect(Collectors.toList());
+            results = db.getResults();
             if (results.size() % 10 == 0) {
                 sendNotification(new Notification("Точки кратны", this.getClass().getName(), sequenceNumber++, "Общее количество точек (" + results.size() + ") кратно 10"));
             }
@@ -163,7 +163,7 @@ public class ResultBean extends NotificationBroadcasterSupport implements Serial
     public long getFailedPointsCount() {
         List<Point> results = new ArrayList<>();
         try {
-            results = db.getResults().stream().filter(x -> !x.isInArea() && x.getSessionId().equals(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false))).collect(Collectors.toList());
+            results = db.getResults().stream().filter(x -> !x.isInArea()).collect(Collectors.toList());
         } catch (PersistenceException e) {
             e.printStackTrace();
         }
@@ -172,6 +172,16 @@ public class ResultBean extends NotificationBroadcasterSupport implements Serial
 
     @Override
     public double getAreaSize() {
+        List<Point> results;
+        double r = 0;
+        try {
+            results = db.getResults();
+            if (!results.isEmpty()) {
+                r = results.get(results.size()-1).getR();
+            }
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
         return (r * r) + (r * r / 4) + (Math.PI * Math.pow(0.5 * r, 2) / 4);
     }
 
