@@ -1,6 +1,8 @@
 package beans;
 
 import db.DBUnit;
+import mbeans.AreaMBean;
+import mbeans.CountMBean;
 import other.Point;
 
 import javax.annotation.PostConstruct;
@@ -8,14 +10,19 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.management.AttributeChangeNotification;
+import javax.management.MBeanNotificationInfo;
+import javax.management.Notification;
+import javax.management.NotificationBroadcasterSupport;
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ManagedBean
 @ApplicationScoped
-public class ResultBean {
+public class ResultBean extends NotificationBroadcasterSupport implements CountMBean, AreaMBean {
     private double x;
     private double y;
     private double r;
@@ -23,6 +30,7 @@ public class ResultBean {
     private boolean[] options = new boolean[5];
     private final DBUnit db = new DBUnit();
     private List<Point> results = new ArrayList<>();
+    private long sequenceNumber = 0;
 
     public double getX() {
         return x;
@@ -119,7 +127,7 @@ public class ResultBean {
         s.append("let canvas = document.getElementById('canvas');\n");
         s.append("let context = canvas.getContext('2d');\n");
         s.append("context.fillStyle = \"#FF0000\";\n");
-        getResults().forEach(result -> s.append("context.fillRect(\"").append(result.getX()*36+133-1.5).append("\", \"").append(result.getY()*-36+133-2).append("\", 2, 2);\n"));
+        getResults().forEach(result -> s.append("context.fillRect(\"").append(result.getX() * 36 + 133 - 1.5).append("\", \"").append(result.getY() * -36 + 133 - 2).append("\", 2, 2);\n"));
         s.append("}\n");
         s.append("</script>\n");
         return s.toString();
@@ -135,5 +143,47 @@ public class ResultBean {
 
     private boolean pointIsInRectangle() {
         return (y >= -r) && (y <= 0) && (x >= -r) && (x <= 0);
+    }
+
+    @Override
+    public long getAllPointsCount() {
+        List<Point> results = new ArrayList<>();
+        try {
+            results = db.getResults().stream().filter(x -> x.getSessionId().equals(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false))).collect(Collectors.toList());
+            if (results.size() % 10 == 0) {
+                sendNotification(new Notification("Точки кратны", this.getClass().getName(), sequenceNumber++, "Общее количество точек (" + results.size() + ") кратно 10"));
+            }
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return results.size();
+    }
+
+    @Override
+    public long getFailedPointsCount() {
+        List<Point> results = new ArrayList<>();
+        try {
+            results = db.getResults().stream().filter(x -> !x.isInArea() && x.getSessionId().equals(FacesContext.getCurrentInstance().getExternalContext().getSessionId(false))).collect(Collectors.toList());
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+        return results.size();
+    }
+
+    @Override
+    public double getAreaSize() {
+        return (r * r) + (r * r / 4) + (Math.PI * Math.pow(0.5 * r, 2) / 4);
+    }
+
+    @Override
+    public MBeanNotificationInfo[] getNotificationInfo() {
+        String[] types = new String[]{
+                AttributeChangeNotification.ATTRIBUTE_CHANGE
+        };
+
+        String name = AttributeChangeNotification.class.getName();
+        String description = "Общее количество точек кратно 10";
+        MBeanNotificationInfo info = new MBeanNotificationInfo(types, name, description);
+        return new MBeanNotificationInfo[]{info};
     }
 }
