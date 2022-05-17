@@ -1,10 +1,10 @@
-package jobs;
+package com.gramdel.jobs;
 
-import db.DBUnit;
-import listeners.SessionListener;
+import com.gramdel.db.DBUnit;
+import com.gramdel.listeners.SessionListener;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import other.Point;
+import com.gramdel.other.Point;
 
 import java.util.List;
 

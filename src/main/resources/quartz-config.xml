@@ -11,7 +11,7 @@
         <job>
             <name>SessionKillJob</name>
             <group>SessionKillGroup</group>
-            <job-class>jobs.SessionKillJob</job-class>
+            <job-class>com.gramdel.jobs.SessionKillJob</job-class>
         </job>
 
         <trigger>

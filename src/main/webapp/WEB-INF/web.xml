@@ -38,7 +38,7 @@
   <!-- Filter -->
   <filter>
     <filter-name>Session Filter</filter-name>
-    <filter-class>filters.SessionFilter</filter-class>
+    <filter-class>com.gramdel.filters.SessionFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>Session Filter</filter-name>
@@ -47,7 +47,10 @@
 
   <!-- Listeners -->
   <listener>
-    <listener-class>listeners.SessionListener</listener-class>
+    <listener-class>com.gramdel.listeners.MXBeanContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.gramdel.listeners.SessionListener</listener-class>
   </listener>
   <listener>
     <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>

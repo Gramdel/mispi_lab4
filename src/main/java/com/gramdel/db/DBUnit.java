@@ -1,6 +1,6 @@
-package db;
+package com.gramdel.db;
 
-import other.Point;
+import com.gramdel.other.Point;
 
 import javax.persistence.*;
 import java.util.List;

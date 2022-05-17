@@ -1,9 +1,8 @@
-package beans;
+package com.gramdel.beans;
 
-import db.DBUnit;
-import mbeans.AreaMBean;
-import mbeans.CountMBean;
-import other.Point;
+import com.gramdel.db.DBUnit;
+import com.gramdel.mbeans.ResultBeanMXBean;
+import com.gramdel.other.Point;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -15,6 +14,7 @@ import javax.management.MBeanNotificationInfo;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import javax.persistence.PersistenceException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @ManagedBean
 @ApplicationScoped
-public class ResultBean extends NotificationBroadcasterSupport implements CountMBean, AreaMBean {
+public class ResultBean extends NotificationBroadcasterSupport implements Serializable, ResultBeanMXBean {
     private double x;
     private double y;
     private double r;

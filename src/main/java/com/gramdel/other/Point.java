@@ -1,4 +1,4 @@
-package other;
+package com.gramdel.other;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
